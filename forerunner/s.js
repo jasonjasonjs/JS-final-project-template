@@ -5,6 +5,8 @@ $(document).ready(function(){
 	studentCollection.load(dataLoad);
 })
 
+$("#table-tbody").on("click","col", colClick);
+
 var studentCollection = db.collection("students");
 var newStudent = {
     name: "Koding",
@@ -50,12 +52,27 @@ function update(tt) {
 
 	for (var i = 0; i < tt.length; i++) {
 		$("#tt").append(
-		 "<tr>" +
+		 "<tr class='col'>" +
 		 "<td>" + (i + 1) + "</td>" +
-		 "<td>" + tt[i]._id + "</td>" +
+		 "<td class='dataId'>" + tt[i]._id + "</td>" +
 		 "<td>" + tt[i].name + "</td>" +
 		 "</tr>"
 		 );
 	}
 }
- 
+
+function colClick(){
+	console.log("colClick");
+	var ID = $(this).find("dataId").text();
+	var query = {
+    _id: ID
+	};
+	$("#myModal").find("p").remove();
+	var studentData = studentCollection.find(query);
+ 	$("#modal-body").append(
+ 		"<p>ID:" + studentData[0]._id + "</p>" +
+ 		"<p>姓名:" + datas[0].name + "</p>" +
+ 		"<p>年齡:" + studentCollection[0].age + "</p>"
+	);
+ 	$("#myModal").modal("show");
+}  
