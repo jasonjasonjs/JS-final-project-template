@@ -2,10 +2,26 @@ var fdb = new ForerunnerDB();
 var db = fdb.db("school");
 
 $(document).ready(function(){
+	console.log("ready");
 	studentCollection.load(dataLoad);
+	$("#tt").on("click",".dataId", colIdClick);
+	$("#tt").on("click",".btn-danger", btnDeleteClick);
 })
 
-$("#table-tbody").on("click","col", colClick);
+function btnDeleteClick(){
+	var getId = $(this).closest("tr").find(".dataId").text();
+	if(confirm("你確定要刪除嗎?") == false){
+		 return;
+	}
+	studentCollection.remove({
+		_id:  getId
+	});
+
+	studentCollection.save(dataSave);
+	// // update(studentCollection.find());
+}
+
+
 
 var studentCollection = db.collection("students");
 var newStudent = {
@@ -30,6 +46,7 @@ function callback(){
 
 function dataSave(){
 	 console.log("data saved");
+	 update(studentCollection.find());
 }
 
 function createData(){
@@ -50,29 +67,36 @@ function update(tt) {
 	console.log("update");
 	$("#tt").find("tr").remove();
 
+
 	for (var i = 0; i < tt.length; i++) {
 		$("#tt").append(
 		 "<tr class='col'>" +
 		 "<td>" + (i + 1) + "</td>" +
 		 "<td class='dataId'>" + tt[i]._id + "</td>" +
 		 "<td>" + tt[i].name + "</td>" +
+		 "<td button class='btn btn-warning'>修改</button>" + "  " + "<td button class='btn btn-danger'>刪除</button>" +
 		 "</tr>"
 		 );
 	}
-}
+} 
 
-function colClick(){
-	console.log("colClick");
-	var ID = $(this).find("dataId").text();
+
+
+function colIdClick(){
+	console.log("colIdClick");
+	var ID = $(this).text();
 	var query = {
     _id: ID
 	};
+
 	$("#myModal").find("p").remove();
 	var studentData = studentCollection.find(query);
  	$("#modal-body").append(
  		"<p>ID:" + studentData[0]._id + "</p>" +
- 		"<p>姓名:" + datas[0].name + "</p>" +
- 		"<p>年齡:" + studentCollection[0].age + "</p>"
+ 		"<p>姓名:" + studentData[0].name + "</p>" +
+ 		"<p>年齡:" + studentData[0].age + "</p>" 
 	);
  	$("#myModal").modal("show");
-}  
+} 
+ 
+alert("");
