@@ -25,7 +25,7 @@ function btnDeleteClick(){
 
 var studentCollection = db.collection("students");
 var newStudent = {
-    name: "Koding",
+    colIdClick: "Koding",
     age: 18
 };
 
@@ -99,4 +99,8 @@ function colIdClick(){
  	$("#myModal").modal("show");
 } 
  
-alert("");
+// var name = ;
+// var age = ;
+
+
+alert(age + "的" + name + "你好");
