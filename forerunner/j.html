@@ -9,6 +9,11 @@
 	<title></title>
 </head>
 <body>
+	<p>
+	<label>Name:<input id="edtname" type=”text” value=""/></label>
+	<label>age:<input id="edtage" type=”text” value=""/></label>
+	<button type="button" class="" id="talk">查詢</button>
+	</p>
 	<table class="table table-hover">
         <thead>
             <tr>
@@ -39,5 +44,27 @@
 		    </div> 
 		  </div> 
 		</div> 
+
+
+
+		 <div class="modal fade" tabindex="-1" role="dialog" id="EditModal" studentID="">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"></span></button>
+		        <h4 class="modal-title">修改學生資料</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<label>studentName:<input id="modalName" type=”text” value=""/></label>
+				<label>studentAge:<input id="modalAge" type=”text” value=""/></label>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button id="btnSave" class="btn btn-primary">Save changes</button>
+		      </div>
+		    </div> 
+		  </div> 
+		</div> 
+
 </body>
 </html>

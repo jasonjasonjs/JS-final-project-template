@@ -6,6 +6,7 @@ $(document).ready(function(){
 	studentCollection.load(dataLoad);
 	$("#tt").on("click",".dataId", colIdClick);
 	$("#tt").on("click",".btn-danger", btnDeleteClick);
+	$("#tt").on("click",".btn-warning", btnEditClick);
 })
 
 function btnDeleteClick(){
@@ -30,8 +31,6 @@ var newStudent = {
 };
 
 studentCollection.load(dataLoad);
-
-// console.log(studentCollection.find());
 
 function dataLoad(){
 	console.log("data loaded");
@@ -67,20 +66,17 @@ function update(tt) {
 	console.log("update");
 	$("#tt").find("tr").remove();
 
-
 	for (var i = 0; i < tt.length; i++) {
 		$("#tt").append(
 		 "<tr class='col'>" +
 		 "<td>" + (i + 1) + "</td>" +
 		 "<td class='dataId'>" + tt[i]._id + "</td>" +
 		 "<td>" + tt[i].name + "</td>" +
-		 "<td button class='btn btn-warning'>修改</button>" + "  " + "<td button class='btn btn-danger'>刪除</button>" +
+		 "<td button class='btn btn-warning'>修改</button>" + "<td button class='btn btn-danger'>刪除</button>" +
 		 "</tr>"
 		 );
 	}
 } 
-
-
 
 function colIdClick(){
 	console.log("colIdClick");
@@ -98,9 +94,23 @@ function colIdClick(){
 	);
  	$("#myModal").modal("show");
 } 
- 
-// var name = ;
-// var age = ;
 
+function talk(){
+	var name = $("edtname").val();
+	var age = $("edtage").val();
+	alert(age + "歲的" + name);
+}
 
-alert(age + "的" + name + "你好");
+function btnEditClick(){
+	console.log("btnEditClick");
+	var ID = $(this).closest("tr").find(".dataId").text();
+	console.log(ID);
+	var query = {
+		_id: ID
+	}
+	var studentData = studentCollection.find(query);
+ 	$("#modalAge").val(studentData[0].age);	 
+ 	$("#modalName").val(studentData[0].name);
+	$("#EditModal").attr("studentID", ID);
+	$("#EditModal").modal("show");
+}
